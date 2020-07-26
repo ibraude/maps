@@ -79,20 +79,26 @@
 
 - (void)addHeader:(NSString *)value forHeaderName:(NSString *)headerName {
     
+    if (value == NULL || headerName == NULL) return;
+  
     if(!areHeadersAdded) {
         areHeadersAdded = YES;
     }
-    
+
     NSLog(@"Add custom header %@ %@", headerName, value);
     [_currentHeaders setObject:value forKey:headerName];
-    [[[MGLNetworkConfiguration sharedManager] sessionConfiguration] setHTTPAdditionalHeaders:_currentHeaders];    
+    [[[MGLNetworkConfiguration sharedManager] sessionConfiguration] setHTTPAdditionalHeaders:_currentHeaders];
 }
 
 - (void)removeHeader:(NSString *)header {
+  
+    if (header == NULL) return;
+
+  
     if(!areHeadersAdded) {
         return;
     }
-    
+
     NSLog(@"Remove custom header %@", header);
     [_currentHeaders removeObjectForKey:header];
 }
